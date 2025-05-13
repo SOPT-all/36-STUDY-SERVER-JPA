@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.util.List;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -26,14 +28,22 @@ public class JpaMain {
 			member.setTeam(team);
 			em.persist(member);
 
+			em.flush();
+			em.clear();
+
 			Member findMember = em.find(Member.class, member.getId());
+			List<Member> members = findMember.getTeam().getMembers();
+
+			for (Member m : members) {
+				System.out.println("m = " + m.getUsername());
+			}
+
+			tx.commit();
 
 			// Long findTeamId = findMember.getTeamId();
 			// Team findTeam = em.find(Team.class, findTeamId);
-			Team findTeam = findMember.getTeam();
-			System.out.println("findTeam = " + findTeam.getName());
-
-			tx.commit();
+			// Team findTeam = findMember.getTeam();
+			// System.out.println("findTeam = " + findTeam.getName());
 
 			// IDENTITY 전략은 em.persist() 시점에 즉시
 			// INSERT SQL을 실행하고 DB에서 식별자를 조회
