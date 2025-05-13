@@ -19,11 +19,27 @@
 // 	@Column(name = "ORDER_ID")
 // 	private Long id;
 //
-// 	@Column(name = "MEMBER_ID")
+//	@ManyToOne
+// 	@JoinColumn(name = "MEMBER_ID")
 // 	private Long memberId;
 //
 // 	private LocalDateTime orderDate;
 //
 // 	@Enumerated(EnumType.STRING)
 // 	private OrderStatus status;
+//
+//	== 연관 관계 메소드 ==
+//  public void setMember(Member member) {
+//  //기존 관계 제거
+//	if (this.member != null) {
+//		this.member.getOrders().remove(this);
+//	}
+//  this.member = member;
+//	member.getOrders().add(this);
+//	}
+
+//  public void addOrderItem(OrderItem orderItem) {
+//		orderItems.add(orderItem);
+//		orderItem.setOrder(this);
+//	}
 // }

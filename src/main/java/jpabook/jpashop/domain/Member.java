@@ -17,6 +17,9 @@
 // 	private String street;
 // 	private String zipcode;
 //
+//  @OneToMany(mappedBy = "member")
+//  private List<Order> orders = new ArrayList<Order>();
+//
 // 	public Long getId() {
 // 		return id;
 // 	}
