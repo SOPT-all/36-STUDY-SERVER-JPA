@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Member {
@@ -32,6 +33,9 @@ public class Member {
 
 	@Lob
 	private String description;
+
+	@Transient
+	private int temp;
 
 	protected Member() {
 
