@@ -1,5 +1,3 @@
-package hellojpa;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -18,6 +16,7 @@ public class JpaMain {
 
 			// IDENTITY 전략은 em.persist() 시점에 즉시
 			// INSERT SQL을 실행하고 DB에서 식별자를 조회
+			/*
 			Member member = new Member();
 			member.setUsername("C");
 
@@ -25,6 +24,7 @@ public class JpaMain {
 			em.persist(member);
 			System.out.println("member.id = " + member.getId());
 			System.out.println("============");
+			 */
 
 			/*
 			Member member = em.find(Member.class, "150L");
