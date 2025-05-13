@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -27,6 +29,9 @@ public class Member {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
+
+	private LocalDate testLocalDate;
+	private LocalDateTime testLocalDateTime;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModifinedDate;
