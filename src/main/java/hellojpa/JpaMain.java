@@ -84,8 +84,33 @@ public class JpaMain {
             /*
              * Dirty Checking
              */
-            Member member = em.find(Member.class, 150L);
-            member.setName("UPDATE");
+//            Member member = em.find(Member.class, 150L);
+//            member.setName("UPDATE");
+
+            Member member1 = new Member();
+            member1.setUsername("A");
+
+            Member member2 = new Member();
+            member2.setUsername("B");
+
+            Member member3 = new Member();
+            member3.setUsername("C");
+
+            System.out.println("=====================");
+
+            em.persist(member1); //1, 51 : 50까지 미리 더미로 호출
+            // 51를 만나기 전엔 `call next value`를 한 번만
+            em.persist(member2); //MEM
+            em.persist(member3); //MEM
+
+            // 내부적인 로직 덕분에 select 없이 insert 쿼리만으로 값 조회해올 수 있다.
+            System.out.println("member1.id" + member1.getId());
+            System.out.println("member2.id" + member2.getId());
+            System.out.println("member3.id" + member3.getId());
+
+
+
+            System.out.println("=====================");
 
             tx.commit();
         } catch (Exception e) {
