@@ -1,5 +1,6 @@
 package hellojpa;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import jakarta.persistence.OneToOne;
 // 	name = "MEMBER_SEQ_GENERATOR",
 // 	table = "MY_SEQUENCES",
 // 	pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
-public class Member {
+public class Member extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name = "MEMBER_ID")
@@ -48,6 +49,8 @@ public class Member {
 	// @ManyToOne
 	// @JoinColumn(name = "TEAM_ID")
 	// private Team team;
+
+
 
 	protected Member() {
 
