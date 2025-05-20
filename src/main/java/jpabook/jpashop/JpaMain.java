@@ -1,31 +1,28 @@
-package hellojpa;
+package jpabook.jpashop;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import java.util.List;
+import jpabook.jpashop.domain.Book;
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
         EntityManager em = emf.createEntityManager();
-
         EntityTransaction tx = em.getTransaction();
+
         tx.begin();
 
         try {
-            // 영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAA");
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
 
-            em.clear();
-
-            Member member2 = em.find(Member.class, 150L);
-
-            System.out.println("=====");
-            tx.commit();
+            em.persist(book);
         } catch (Exception e) {
             tx.rollback();
         } finally {
