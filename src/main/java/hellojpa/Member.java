@@ -1,11 +1,17 @@
 package hellojpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -29,6 +35,12 @@ public class Member {
 	@OneToOne
 	@JoinColumn(name = "LOCKER_ID")
 	private Locker locker;
+
+	// @ManyToMany
+	// @JoinTable(name = "MEMBER_PRODUCT") // 테이블 명을 적어주면 된다.
+	// private List<Product> products = new ArrayList<>();
+	@OneToMany(mappedBy = "member")
+	private List<MemberProduct> memberProducts = new ArrayList<>();
 
 	// @Column(name = "TEAM_ID")
 	// private Long teamId;
