@@ -1,5 +1,7 @@
 package hellojpa;
 
+import hellojpa.domain.Order;
+import hellojpa.domain.OrderItem;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -14,11 +16,16 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
+            Order order = new Order();
+//            order.addOrderItem(new OrderItem());
+            // 양방향 연관관계 아니어도 아무 문제 없음
+            em.persist(order);
 
-            em.detach(member);
-            Member member2 = em.find(Member.class, 150L);
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+
+            em.persist(orderItem);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
