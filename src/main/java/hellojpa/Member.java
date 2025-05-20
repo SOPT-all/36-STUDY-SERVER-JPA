@@ -1,36 +1,150 @@
 package hellojpa;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
+// @TableGenerator(
+// 	name = "MEMBER_SEQ_GENERATOR",
+// 	table = "MY_SEQUENCES",
+// 	pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
 public class Member {
-  @Id
-  private Long id;
-  private String name;
+	@Id
+	@GeneratedValue
+	@Column(name = "MEMBER_ID")
+	private Long id;
 
-  protected Member() {
+	@Column(name = "USERNAME")
+	private String username;
 
-  }
+	// @Column(name = "TEAM_ID")
+	// private Long teamId;
 
-  public Member(Long id, String name) {
-    this.id = id;
-    this.name = name;
-  }
+	@ManyToOne
+	@JoinColumn(name = "TEAM_ID")
+	private Team team;
 
-  public Long getId() {
-    return id;
-  }
+	protected Member() {
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	}
 
-  public String getName() {
-    return name;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	// 필드와 컬럼 매핑
+	/*
+	private int age;
+
+	@Enumerated(EnumType.STRING)
+	private RoleType roleType;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+
+	private LocalDate testLocalDate;
+	private LocalDateTime testLocalDateTime;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastModifinedDate;
+
+	@Lob
+	private String description;
+
+	@Transient
+	private int temp;
+
+	protected Member() {
+
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public RoleType getRoleType() {
+		return roleType;
+	}
+
+	public void setRoleType(RoleType roleType) {
+		this.roleType = roleType;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getLastModifinedDate() {
+		return lastModifinedDate;
+	}
+
+	public void setLastModifinedDate(Date lastModifinedDate) {
+		this.lastModifinedDate = lastModifinedDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getTemp() {
+		return temp;
+	}
+
+	public void setTemp(int temp) {
+		this.temp = temp;
+	}
+	*/
+
 }

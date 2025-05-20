@@ -1,41 +1,91 @@
 package hellojpa;
 
+import java.util.List;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+	public static void main(String[] args) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
-        EntityManager em = emf.createEntityManager();
+		EntityManager em = emf.createEntityManager();
 
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 
-        try {
+		try {
 
-            Member member = em.find(Member.class, "150L");
-            member.setName("AAAA");
+			Team team = new Team();
+			team.setName("TeamA");
+			// team.getMembers().add(member);
+			em.persist(team);
 
-            em.clear();
+			Member member = new Member();
+			member.setUsername("member1");
+			// member.setTeamId(team.getId());
+			member.setTeam(team);
+			em.persist(member);
 
-            Member member2 = em.find(Member.class, "150L");
+			em.flush();
+			em.clear();
 
-            tx.commit();
+			Member findMember = em.find(Member.class, member.getId());
+			List<Member> members = findMember.getTeam().getMembers();
 
-        } catch (Exception e) {
-            tx.rollback();
+			for (Member m : members) {
+				System.out.println("m = " + m.getUsername());
+			}
 
-        } finally {
-            em.close();
-        }
+			tx.commit();
+
+			// Long findTeamId = findMember.getTeamId();
+			// Team findTeam = em.find(Team.class, findTeamId);
+			// Team findTeam = findMember.getTeam();
+			// System.out.println("findTeam = " + findTeam.getName());
+
+			// IDENTITY 전략은 em.persist() 시점에 즉시
+			// INSERT SQL을 실행하고 DB에서 식별자를 조회
+			/*
+			Member member = new Member();
+			member.setUsername("C");
+
+			System.out.println("============");
+			em.persist(member);
+			System.out.println("member.id = " + member.getId());
+			System.out.println("============");
+			 */
+
+			/*
+			Member member = em.find(Member.class, "150L");
+			member.setName("AAAA");
+
+			em.clear();
+
+			Member member2 = em.find(Member.class, "150L");
+			 */
 
 
-        emf.close();
+			/*
+			Member member = new Member();
+			member.setId(1L);
+			member.setUsername("A");
+			member.setRoleType(RoleType.USER);
 
+			em.persist(member);
+			tx.commit();
+			*/
 
-    }
+		} catch (Exception e) {
+			tx.rollback();
+
+		} finally {
+			em.close();
+		}
+
+		emf.close();
+
+	}
 }
