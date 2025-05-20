@@ -21,12 +21,16 @@ public class Member {
 	@Column(name = "USERNAME")
 	private String username;
 
+	@ManyToOne
+	@JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //읽기 전용
+	private Team team;
+
 	// @Column(name = "TEAM_ID")
 	// private Long teamId;
 
-	@ManyToOne
-	@JoinColumn(name = "TEAM_ID")
-	private Team team;
+	// @ManyToOne
+	// @JoinColumn(name = "TEAM_ID")
+	// private Team team;
 
 	protected Member() {
 
@@ -48,13 +52,13 @@ public class Member {
 		this.username = username;
 	}
 
-	public Team getTeam() {
-		return team;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+	// public Team getTeam() {
+	// 	return team;
+	// }
+	//
+	// public void setTeam(Team team) {
+	// 	this.team = team;
+	// }
 
 	// 필드와 컬럼 매핑
 	/*
