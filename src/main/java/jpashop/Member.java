@@ -1,8 +1,8 @@
-package jpashop;
-
-import jakarta.persistence.Entity;
-
-@Entity
-public class Member {
-
-}
+// package jpashop;
+//
+// import jakarta.persistence.Entity;
+//
+// @Entity
+// public class Member {
+//
+// }

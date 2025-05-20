@@ -1,4 +1,4 @@
-package jpashop;
-
-public enum DeliveryStatus {
-}
+// package jpashop;
+//
+// public enum DeliveryStatus {
+// }
