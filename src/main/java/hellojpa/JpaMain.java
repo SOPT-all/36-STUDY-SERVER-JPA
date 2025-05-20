@@ -25,18 +25,66 @@ public class JpaMain {
 
         try {
 
-            Member findMember = em.find(Member.class, 1L);
-            findMember.setName("hellojpa");
+//            Member findMember = em.find(Member.class, 1L);
+//            findMember.setName("hellojpa");
+//
+//            List<Member> result = em.createQuery("select m from Member m", Member.class)
+//                    .getResultList();
+//
+//            for (Member member : result) {
+//                System.out.println("member.name = " + member.getName());
+//            }
 
-            List<Member> result = em.createQuery("select m from Member m", Member.class)
-                    .getResultList();
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
+
+
+            // 저장
+            Team team = new Team();
+            team.setName("TeamA");
+
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member1");
+            member.changeTeam(team); // setTeam 할때, 연관관계 편의메소드 설정하자.
+            em.persist(member);
+// 컬렉션에 추가한다고 해서, db 에 반영되지 않음 .
+//            team.getMembers().add(member); // members 는 읽기전용 매핑이므로
+
+//            Member member = new Member();
+////            member.setTeamId(team.getId()); // 외래키를 직접 다루므로 JOIN 을 직접 적어주어야한다.
+//            member.setTeam(team);
+//            em.persist(member);
+
+
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+
+            List<Member> members = findMember.getTeam().getMembers();
+
+            for (Member member1 : members) {
+                System.out.println("m = " + member.getUsername());
+
             }
+
+//            System.out.println("findMember.getUsername() = " + findMember.getUsername());
+//
+//
+//
+//            // 객체지향스럽지 않은 방식이다.
+////            Long findTeamId = findMember.getTeamId();
+//            Team findTeam = findMember.getTeam();
+////            Team findTeam = em.find(Team.class, findTeamId);
+//
+//            System.out.println("findTeam.getName() = " + findTeam.getName());
+
+
             tx.commit(); // 커밋
 
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         } finally {
             em.close();
