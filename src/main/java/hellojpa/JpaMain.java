@@ -35,19 +35,30 @@ public class JpaMain {
 //                System.out.println("member.name = " + member.getName());
 //            }
 
+            Movie movie = new Movie();
+            movie.setDirector("aaaa");
+            movie.setActor("bbbb");
+            movie.setName("바람과함께사라지다");
+            movie.setPrice(10000);
 
+            em.persist(movie);
 
+            em.flush();
+            em.clear();
 
-            // 저장
-            Team team = new Team();
-            team.setName("TeamA");
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie);
 
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("member1");
-            member.changeTeam(team); // setTeam 할때, 연관관계 편의메소드 설정하자.
-            em.persist(member);
+            // // 저장
+            // Team team = new Team();
+            // team.setName("TeamA");
+            //
+            // em.persist(team);
+            //
+            // Member member = new Member();
+            // member.setUsername("member1");
+            // member.changeTeam(team); // setTeam 할때, 연관관계 편의메소드 설정하자.
+            // em.persist(member);
 // 컬렉션에 추가한다고 해서, db 에 반영되지 않음 .
 //            team.getMembers().add(member); // members 는 읽기전용 매핑이므로
 
@@ -57,17 +68,17 @@ public class JpaMain {
 //            em.persist(member);
 
 
-            em.flush();
-            em.clear();
-
-            Member findMember = em.find(Member.class, member.getId());
-
-            List<Member> members = findMember.getTeam().getMembers();
-
-            for (Member member1 : members) {
-                System.out.println("m = " + member.getUsername());
-
-            }
+            // em.flush();
+            // em.clear();
+            //
+            // Member findMember = em.find(Member.class, member.getId());
+            //
+            // List<Member> members = findMember.getTeam().getMembers();
+            //
+            // for (Member member1 : members) {
+            //     System.out.println("m = " + member.getUsername());
+            //
+            // }
 
 //            System.out.println("findMember.getUsername() = " + findMember.getUsername());
 //

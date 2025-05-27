@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team {
+public class Team extends BaseEntity {
 
   @Id @GeneratedValue
   @Column(name = "TEAM_ID")
@@ -20,7 +20,6 @@ public class Team {
   @OneToMany(mappedBy = "team") // Member 의 team 이 연관관계의 주인이다.
   // 여기서는 조회만 가능.
   private List<Member> members = new ArrayList<>();
-
   public List<Member> getMembers() {
     return members;
   }

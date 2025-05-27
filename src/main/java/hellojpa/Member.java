@@ -7,23 +7,33 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     public Member() {
     }
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
+
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
 
     @Column(name = "name")
@@ -84,21 +94,9 @@ public class Member {
         this.roleType = roleType;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
 
-    public void setCreatedDate(final Date createdDate) {
-        this.createdDate = createdDate;
-    }
 
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
 
-    public void setLastModifiedDate(final Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
 
     public String getDescription() {
         return description;
@@ -119,20 +117,31 @@ public class Member {
     private RoleType roleType;
 
     // LocalDate, LocalDateTime 을 사용할때는 애노테이션 안 붙여도 된다 .
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    // @Temporal(TemporalType.TIMESTAMP)
+    // private Date createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+    // @Temporal(TemporalType.TIMESTAMP)
+    // private Date lastModifiedDate;
 
     @Lob // blob, clob 매핑
     private String description;
 //    @Column(name = " TEAM_ID")
 //    private Long teamId;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+    // @ManyToMany
+    // @JoinTable(name = "MEMBER_PRODUCT")
+    // private List<Product> products = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+
+
 
 
     public Long getId() {
