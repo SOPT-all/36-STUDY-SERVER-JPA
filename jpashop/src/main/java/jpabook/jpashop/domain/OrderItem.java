@@ -1,4 +1,4 @@
-package hellojpa.domain;
+package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
 
