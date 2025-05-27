@@ -1,18 +1,26 @@
 package hellojpa;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 // @TableGenerator(
 // 	name = "MEMBER_SEQ_GENERATOR",
 // 	table = "MY_SEQUENCES",
 // 	pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
-public class Member {
+public class Member extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name = "MEMBER_ID")
@@ -21,12 +29,28 @@ public class Member {
 	@Column(name = "USERNAME")
 	private String username;
 
+	@ManyToOne
+	@JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //읽기 전용
+	private Team team;
+
+	@OneToOne
+	@JoinColumn(name = "LOCKER_ID")
+	private Locker locker;
+
+	// @ManyToMany
+	// @JoinTable(name = "MEMBER_PRODUCT") // 테이블 명을 적어주면 된다.
+	// private List<Product> products = new ArrayList<>();
+	@OneToMany(mappedBy = "member")
+	private List<MemberProduct> memberProducts = new ArrayList<>();
+
 	// @Column(name = "TEAM_ID")
 	// private Long teamId;
 
-	@ManyToOne
-	@JoinColumn(name = "TEAM_ID")
-	private Team team;
+	// @ManyToOne
+	// @JoinColumn(name = "TEAM_ID")
+	// private Team team;
+
+
 
 	protected Member() {
 
@@ -48,13 +72,13 @@ public class Member {
 		this.username = username;
 	}
 
-	public Team getTeam() {
-		return team;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+	// public Team getTeam() {
+	// 	return team;
+	// }
+	//
+	// public void setTeam(Team team) {
+	// 	this.team = team;
+	// }
 
 	// 필드와 컬럼 매핑
 	/*
