@@ -1,6 +1,7 @@
 package hellojpa;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,6 +26,17 @@ public class Order {
 
 //  @Column(name = "MEMBER_ID")
 //  private Long memberId;
+
+  @Embedded
+  private Address address;
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 
   @ManyToOne
   @JoinColumn(name = "MEMBER_ID")
